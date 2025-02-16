@@ -5,32 +5,32 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/pokemon_db
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=
-      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_DATABASE_URL=jdbc:postgresql://dpg-cuosscd6l47c73cglieg-a/pokemon_db_zzzm
+      - SPRING_DATABASE_USERNAME=root
+      - SPRING_DATABASE_PASSWORD=VgCsev4tdpKhajmrmU86yX0AaTnyakFP
+      - SPRING_DATABASE_DRIVER_CLASS_NAME=org.postgresql.Driver
     depends_on:
-      mysqldb:
+      postgresdb:
         condition: service_healthy
 
-  mysqldb:
-    container_name: "mysqldb"
-    image: mysql:8.0
+  postgresdb:
+    container_name: "postgresdb"
+    image: postgres:latest
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - postgres-data:/var/lib/postgresql/data
     environment:
-      MYSQL_DATABASE: "pokemon_db"
-      MYSQL_ROOT_PASSWORD: ""
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      POSTGRES_DB: "pokemon_db"
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "VgCsev4tdpKhajmrmU86yX0AaTnyakFP"
     restart: always
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p"]
+      test: ["CMD-SHELL", "pg_isready -U admin -d pokemon_db"]
       interval: 10s
       retries: 5
       start_period: 30s
 
 volumes:
-  mysql-data:
+  postgres-data:
     external: false
