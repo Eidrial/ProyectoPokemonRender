@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Entrenadores</title>
+	<link th:href="@{/css/estilos.css}" rel="stylesheet" />
+</head>
+<body>
+    <h1>Lista de Entrenadores</h1>
+    <a href="/entrenadores/crear">Crear nuevo entrenador</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Nivel</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="entrenador : ${entrenadores}">
+                <tr>
+                    <td th:text="${entrenador.nombre}"></td>
+                    <td th:text="${entrenador.nivel}"></td>
+                    <td>
+                        <a th:href="@{/entrenadores/detalles/{id}(id=${entrenador.id})}">Ver detalles</a> |
+                        <a th:href="@{/entrenadores/editar/{id}(id=${entrenador.id})}">Editar</a> |
+                        <a th:href="@{/entrenadores/{id}(id=${entrenador.id})}" th:onclick="return confirm('¿Estás seguro de que deseas eliminar?');">Eliminar</a>
+                    </td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</body>
+</html>

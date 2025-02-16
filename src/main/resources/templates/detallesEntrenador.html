@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Entrenador</title>
+	<link th:href="@{/css/estilos.css}" rel="stylesheet" />
+</head>
+<body>
+    <h1>Detalles del Entrenador</h1>
+    <p><strong>Nombre:</strong> <span th:text="${entrenador.nombre}"></span></p>
+    <p><strong>Nivel:</strong> <span th:text="${entrenador.nivel}"></span></p>
+
+    <h2>Equipo de Pokémon:</h2>
+    <ul>
+        <th:block th:each="pokemon : ${entrenador.equipo}">
+            <li th:text="${pokemon.nombre}"></li>
+        </th:block>
+    </ul>
+
+    <a href="/entrenadores">Volver a la lista de entrenadores</a>
+</body>
+</html>
